@@ -6,6 +6,9 @@ target 'NewsApp' do
   use_frameworks!
 
   # Pods for NewsApp
+  pod 'Moya'
+  pod 'Kingfisher'
+  pod 'RxSwift'
 
   target 'NewsAppTests' do
     inherit! :search_paths
