@@ -2,13 +2,9 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>SchemeUserState</key>
-	<dict>
-		<key>NewsApp.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>7</integer>
-		</dict>
-	</dict>
+	<key>base_url</key>
+	<string>https://newsapi.org</string>
+	<key>api_key</key>
+	<string>893ebd4964da46efbaa0850126e1471e</string>
 </dict>
 </plist>
