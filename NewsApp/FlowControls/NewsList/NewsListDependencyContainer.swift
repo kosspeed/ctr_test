@@ -20,4 +20,8 @@ final class NewsListDependencyContainer {
         interactor.output = presenter
         viewController.presenter = presenter
     }
+    
+    deinit {
+        print("NewsListDependencyContainer deinit")
+    }
 }

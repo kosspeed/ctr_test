@@ -6,11 +6,13 @@ PODS:
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - RxSwift (6.2.0)
+  - SVProgressHUD (2.2.5)
 
 DEPENDENCIES:
   - Kingfisher
   - Moya
   - RxSwift
+  - SVProgressHUD
 
 SPEC REPOS:
   trunk:
@@ -18,13 +20,15 @@ SPEC REPOS:
     - Kingfisher
     - Moya
     - RxSwift
+    - SVProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 706ef9697db3da4e3ef9cd980442252c03fff8a6
+PODFILE CHECKSUM: 332f5408e8a090fc7cce442b4c9e92cd48e8ed80
 
 COCOAPODS: 1.10.1

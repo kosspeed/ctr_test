@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class NewsListViewController: UIViewController {
     //MARK: IBOutlet
@@ -26,7 +27,9 @@ class NewsListViewController: UIViewController {
     //MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        initialize()
+        SVProgressHUD.setDefaultStyle(.dark)
+        SVProgressHUD.show()
+        
         setup()
         fetchNewsList(nextPage: false)
     }
@@ -39,6 +42,10 @@ class NewsListViewController: UIViewController {
 //MARK: Setup
 private extension NewsListViewController {
     func setup() {
+        self.title = "News"
+        navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navigationController?.navigationBar.barTintColor = .customGreen
+        
         setupSearchBar()
         setupTableView()
     }
@@ -58,10 +65,6 @@ private extension NewsListViewController {
 
 //MARK: Logic
 private extension NewsListViewController {
-    func initialize() {
-        presenter?.initialize()
-    }
-    
     func fetchNewsList(nextPage: Bool) {
         presenter?.fetchNewsList(nextPage: nextPage)
     }
@@ -77,15 +80,9 @@ private extension NewsListViewController {
 
 //MARK: NewsListPresenterInterface
 extension NewsListViewController: NewsListPresenterOutput {
-    func displayIntialize(title: String,
-                          titleAttributes: [NSAttributedString.Key : Any],
-                          navigationBarColor: UIColor) {
-        self.title = title
-        navigationController?.navigationBar.titleTextAttributes = titleAttributes
-        navigationController?.navigationBar.barTintColor = navigationBarColor
-    }
-    
     func displayNewsList() {
+        SVProgressHUD.dismiss()
+        
         guard let isEmpty = presenter?.isEmpty else { return }
         
         emptyView.isHidden = !isEmpty
@@ -93,7 +90,9 @@ extension NewsListViewController: NewsListPresenterOutput {
     }
     
     func displayError(message: String) {
+        SVProgressHUD.dismiss()
         
+        alert(with: "Error", message: message)
     }
 }
 
@@ -129,6 +128,10 @@ extension NewsListViewController: UITableViewDataSource & UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         searchBar.resignFirstResponder()
+        
+        guard let article = presenter?.article(at: indexPath.row) else { return }
+        
+        presenter?.select(article: article)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {

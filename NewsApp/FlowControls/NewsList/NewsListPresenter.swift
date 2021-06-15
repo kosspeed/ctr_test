@@ -14,18 +14,15 @@ protocol NewsListPresentation {
     var isLoading: Bool { get }
     var isEmpty: Bool { get }
     
-    func initialize()
     func article(at index: Int) -> Article?
     func articleViewModel(at index: Int) -> ArticleViewModel?
     func fetchNewsList(nextPage: Bool)
     func filterArticles(by text: String)
     func resetFilterState()
+    func select(article: Article)
 }
 
 protocol NewsListPresenterOutput: class {
-    func displayIntialize(title: String,
-                          titleAttributes: [NSAttributedString.Key: Any],
-                          navigationBarColor: UIColor)
     func displayNewsList()
     func displayError(message: String)
 }
@@ -97,12 +94,6 @@ final class NewsListPresenter {
 
 //MARK: NewsListPresentation
 extension NewsListPresenter: NewsListPresentation {
-    func initialize() {
-        output?.displayIntialize(title: "News",
-                                 titleAttributes: [.foregroundColor: UIColor.white],
-                                 navigationBarColor: .customGreen)
-    }
-    
     func fetchNewsList(nextPage: Bool) {
         if nextPage {
             newsList?.nextPage()
@@ -135,6 +126,10 @@ extension NewsListPresenter: NewsListPresentation {
         filtering = false
         
         output?.displayNewsList()
+    }
+    
+    func select(article: Article) {
+        router.routeToDetail(article: article)
     }
 }
 
