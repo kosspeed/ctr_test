@@ -9,7 +9,8 @@ target 'NewsApp' do
   pod 'Moya'
   pod 'Kingfisher'
   pod 'RxSwift'
-
+  pod 'SVProgressHUD'
+  
   target 'NewsAppTests' do
     inherit! :search_paths
     # Pods for testing
