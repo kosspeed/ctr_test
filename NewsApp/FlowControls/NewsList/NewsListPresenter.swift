@@ -13,6 +13,7 @@ protocol NewsListPresentation {
     var hasNext: Bool { get }
     var isLoading: Bool { get }
     var isEmpty: Bool { get }
+    var isFiltering: Bool { get }
     
     func article(at index: Int) -> Article?
     func articleViewModel(at index: Int) -> ArticleViewModel?
@@ -34,8 +35,9 @@ final class NewsListPresenter {
     private weak var output: NewsListPresenterOutput?
     
     //MARK: Properties
-    private var newsList: NewsList?
-    private var filteredNewsList: NewsList?
+    var newsList: NewsList?
+    var filteredNewsList: NewsList?
+    
     private var articleViewModels: [ArticleViewModel]?
     private var filteredArticleViewModels: [ArticleViewModel]?
     private var defaultDate: Date
@@ -77,6 +79,10 @@ final class NewsListPresenter {
         return loading
     }
     
+    var isFiltering: Bool {
+        return filtering
+    }
+    
     var isEmpty: Bool {
         return filtering ?
             filteredNewsList?.articles?.isEmpty ?? true :
@@ -111,10 +117,10 @@ extension NewsListPresenter: NewsListPresentation {
     }
     
     func filterArticles(by text: String) {
-        if let newsList = newsList, !text.isEmpty {
+        if !text.isEmpty {
             filtering = true
             
-            interactor.filterArticles(with: newsList, text: text)
+            interactor.filterArticles(with: text)
         } else {
             filtering = false
             
@@ -136,13 +142,7 @@ extension NewsListPresenter: NewsListPresentation {
 //MARK: NewsListInteractorOutput
 extension NewsListPresenter: NewsListInteractorOutput {
     func didFetchNewsListSuccess(newsList: NewsList) {
-        if self.newsList == nil {
-            self.newsList = newsList
-        } else {
-            if let articles = newsList.articles {
-                self.newsList?.articles?.append(contentsOf: articles)
-            }
-        }
+        self.newsList = newsList
         
         articleViewModels = buildArticleViewModels(articles: self.newsList?.articles ?? [])
         
@@ -157,6 +157,7 @@ extension NewsListPresenter: NewsListInteractorOutput {
     
     func didFilter(newsList: NewsList) {
         filteredNewsList = newsList
+        
         filteredArticleViewModels = buildArticleViewModels(articles: newsList.articles ?? [])
         
         output?.displayNewsList()

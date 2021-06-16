@@ -9,6 +9,8 @@ import Foundation
 
 struct NewsListResponse: Decodable {
     var status: String?
+    var code: String?
+    var message: String?
     var totalResults: Int?
     var articles: [ArticleResponse]?
 }

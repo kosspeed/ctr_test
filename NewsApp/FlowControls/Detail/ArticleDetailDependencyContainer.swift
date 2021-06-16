@@ -9,10 +9,12 @@ import UIKit
 
 final class ArticleDetailDependencyContainer {
     let viewController: ArticleDetailViewController
+    let interactor: ArticleDetailInteractor
     
     init(article: Article) {
         viewController = ArticleDetailViewController()
-        let interactor = ArticleDetailInteractor()
+        interactor = ArticleDetailInteractor()
+        
         let router = ArticleDetailRouter(container: self)
         let presenter = ArticleDetailPresenter(interactor: interactor,
                                                router: router,

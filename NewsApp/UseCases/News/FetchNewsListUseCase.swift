@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 protocol FetchNewsListUseCase {
-    func fetchNews(from startDate: String, to endDate: String, size: Int, page: Int) -> Observable<NewsList>
+    func execute(from startDate: String, to endDate: String, size: Int, page: Int) -> Observable<NewsList>
 }
 
 final class FetchNewsListUseCaseImpl: FetchNewsListUseCase {
@@ -19,7 +19,7 @@ final class FetchNewsListUseCaseImpl: FetchNewsListUseCase {
         self.repository = repository
     }
     
-    func fetchNews(from startDate: String, to endDate: String, size: Int, page: Int) -> Observable<NewsList> {
+    func execute(from startDate: String, to endDate: String, size: Int, page: Int) -> Observable<NewsList> {
         let request = NewsListRequest(startDate: startDate,
                                       endDate: endDate,
                                       size: size,

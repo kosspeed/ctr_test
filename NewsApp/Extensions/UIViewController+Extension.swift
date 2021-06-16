@@ -49,4 +49,15 @@ extension UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
+    var topViewController: UIViewController? {
+        return UIApplication.shared.topViewController
+    }
+    
+    var topNavController: UINavigationController? {
+        return UIApplication.shared.topViewController as? UINavigationController
+    }
+    
+    var topTabController: UITabBarController? {
+        return UIApplication.shared.topViewController as? UITabBarController
+    }
 }
