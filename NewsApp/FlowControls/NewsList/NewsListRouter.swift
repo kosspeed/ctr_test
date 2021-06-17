@@ -8,11 +8,13 @@
 import UIKit
 
 protocol NewsListRouting {
+    var container: NewsListDependencyContainer { get set }
+    
     func routeToDetail(article: Article)
 }
 
 final class NewsListRouter: NewsListRouting {
-    private let container: NewsListDependencyContainer
+    var container: NewsListDependencyContainer
     
     init(container: NewsListDependencyContainer) {
         self.container = container
@@ -21,6 +23,6 @@ final class NewsListRouter: NewsListRouting {
     func routeToDetail(article: Article) {
         let destinationContainer = ArticleDetailDependencyContainer(article: article)
         
-        container.viewController.navigationController?.pushViewController(destinationContainer.viewController, animated: true)
+        container.viewController.topNavController?.pushViewController(destinationContainer.viewController, animated: true)
     }
 }

@@ -8,17 +8,19 @@
 import Foundation
 
 protocol ArticleDetailRouting {
+    var container: ArticleDetailDependencyContainer { get set }
+    
     func popBack()
 }
 
 final class ArticleDetailRouter: ArticleDetailRouting {
-    private let container: ArticleDetailDependencyContainer
+    var container: ArticleDetailDependencyContainer
     
     init(container: ArticleDetailDependencyContainer) {
         self.container = container
     }
     
     func popBack() {
-        container.viewController.navigationController?.popViewController(animated: true)
+        container.viewController.topNavController?.popViewController(animated: true)
     }
 }

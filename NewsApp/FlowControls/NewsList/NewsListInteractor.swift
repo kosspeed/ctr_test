@@ -9,20 +9,26 @@ import Foundation
 import RxSwift
 
 protocol NewsListInteraction {
+    var newsList: NewsList? { get set }
+    var filteredNewsList: NewsList? { get set }
+    
     func fetchNewsList(from startDate: Date, to endDate: Date, size: Int, page: Int)
-    func filterArticles(with newsList: NewsList, text: String)
+    func filterArticles(with text: String)
 }
 
 protocol NewsListInteractorOutput: class {
     func didFetchNewsListSuccess(newsList: NewsList)
     func didFetchNewsListError(error: Error)
-    
     func didFilter(newsList: NewsList)
 }
 
-final class NewsListInteractor {
+class NewsListInteractor {
     //MARK: Lifecycle
     weak var output: NewsListInteractorOutput?
+    
+    //MARK: Output
+    var newsList: NewsList?
+    var filteredNewsList: NewsList?
     
     //MARK: Internal
     private let fetchNewsListUseCase: FetchNewsListUseCase
@@ -41,24 +47,36 @@ extension NewsListInteractor: NewsListInteraction {
         let formattedEndDate = endDate.toString(by: Date.YYYYDashMMDashddFormat)
         
         fetchNewsListUseCase
-            .fetchNews(from: formattedStartDate, to: formattedEndDate, size: size, page: page)
-            .observe(on: MainScheduler.asyncInstance)
+            .execute(from: formattedStartDate, to: formattedEndDate, size: size, page: page)
+            .observe(on: MainScheduler.instance)
             .subscribe(onNext: { [weak self] (newsList) in
-                self?.output?.didFetchNewsListSuccess(newsList: newsList)
+                if self?.newsList == nil {
+                    self?.newsList = newsList
+                } else {
+                    if let articles = newsList.articles {
+                        self?.newsList?.articles?.append(contentsOf: articles)
+                    }
+                }
+                
+                if let wrappedNewsList = self?.newsList {
+                    self?.output?.didFetchNewsListSuccess(newsList: wrappedNewsList)
+                }
             }, onError: { [weak self] (error) in
                 self?.output?.didFetchNewsListError(error: error)
             })
             .disposed(by: disposeBag)
     }
     
-    func filterArticles(with newsList: NewsList, text: String) {
-        var wrappedNewsList = newsList
-        wrappedNewsList.articles = newsList.articles?.filter {
+    func filterArticles(with text: String) {
+        filteredNewsList = newsList
+        filteredNewsList?.articles = newsList?.articles?.filter {
             let formattedText = text.lowercased()
             
             return $0.title.lowercased().contains(formattedText) || $0.description.lowercased().contains(formattedText)
         }
         
-        output?.didFilter(newsList: wrappedNewsList)
+        if let wrappedFilteredNewsList = filteredNewsList {
+            output?.didFilter(newsList: wrappedFilteredNewsList)
+        }
     }
 }

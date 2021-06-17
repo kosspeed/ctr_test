@@ -9,10 +9,12 @@ import Foundation
 
 final class NewsListDependencyContainer {
     let viewController: NewsListViewController
+    let interactor: NewsListInteractor
     
     init() {
         viewController = NewsListViewController()
-        let interactor = NewsListInteractor()
+        interactor = NewsListInteractor()
+        
         let router = NewsListRouter(container: self)
         let presenter = NewsListPresenter(interactor: interactor,
                                           router: router,
