@@ -1,0 +1,32 @@
+{
+    "status": "ok",
+    "totalResults": 38,
+    "articles": [
+        {
+            "source": {
+                "id": null,
+                "name": "New York Times"
+            },
+            "author": "Mitch Smith, Lisa Waananen Jones",
+            "title": "Covid-19 News: Live Updates - The New York Times",
+            "description": "Many experts say the official total is probably an undercount. Had it not been for the removal of hundreds of deaths from tallies in California, the country would have surpassed the mark already.",
+            "url": "https://www.nytimes.com/live/2021/06/16/world/covid-vaccine-coronavirus-mask",
+            "urlToImage": "https://static01.nyt.com/images/2021/06/16/us/live-blog-20210616-covid-vaccine-coronavirus-mask-header-8am/live-blog-20210616-covid-vaccine-coronavirus-mask-header-8am-facebookJumbo.jpg",
+            "publishedAt": "2021-06-16T11:54:11Z",
+            "content": "LiveUpdated June 16, 2021, 8:40 a.m. ET\r\nJune 16, 2021, 8:40 a.m. ET\r\nMany experts say the official total is probably an undercount. Had it not been for the removal of hundreds of deaths from tallies… [+22617 chars]"
+        },
+        {
+            "source": {
+                "id": "cnn",
+                "name": "CNN"
+            },
+            "author": "Aya Elamroussi, CNN",
+            "title": "Cases of a dangerous Covid-19 variant are 'rapidly increasing' in US, expert says - CNN ",
+            "description": "As US states lift more coronavirus restrictions, experts are worried people who aren't fully vaccinated could contribute to further spread of the virus.",
+            "url": "https://www.cnn.com/2021/06/16/health/us-coronavirus-wednesday/index.html",
+            "urlToImage": "https://cdn.cnn.com/cnnnext/dam/assets/210616000039-us-coronavirus-wednesday-0616-super-tease.jpg",
+            "publishedAt": "2021-06-16T11:33:00Z",
+            "content": "(CNN)As US states lift more coronavirus restrictions, experts are worried people who aren't fully vaccinated could contribute to further spread of the virus.\r\nThe Delta variant, first reported in Ind… [+5465 chars]"
+        }
+    ]
+}
